@@ -1,13 +1,8 @@
 const AdminBro = require('admin-bro');
 const AdminBroExpress = require('@admin-bro/express');
 const express = require('express');
-const mongoose = require('mongoose');
-
-// Database connection
-mongoose.connect('mongodb://localhost:27017/adminbroapp', { useNewUrlParser: true });
 
 const adminBro = new AdminBro({
-  databases: [mongoose],
   rootPath: '/admin',
 });
 
