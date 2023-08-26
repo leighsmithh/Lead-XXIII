@@ -1,9 +1,18 @@
-import AdminJS from './lib/index.js'
+const AdminBro = require('admin-bro');
+const AdminBroExpress = require('@admin-bro/express');
+const express = require('express');
+const mongoose = require('mongoose');
 
-export * from './lib/index.js'
+// Database connection
+mongoose.connect('mongodb://localhost:27017/adminbroapp', { useNewUrlParser: true });
 
-export {
-  AdminJS,
-}
+const adminBro = new AdminBro({
+  databases: [mongoose],
+  rootPath: '/admin',
+});
 
-export default AdminJS
+const app = express();
+const router = AdminBroExpress.buildRouter(adminBro);
+
+app.use(adminBro.options.rootPath, router);
+app.listen(8080, () => console.log('AdminBro is under localhost:8080/admin'));
